@@ -1,5 +1,7 @@
 import type { Config } from 'jest'
 
+// jose v6 is pure ESM — Jest must run with NODE_OPTIONS=--experimental-vm-modules
+// See package.json "test" script.
 const config: Config = {
   projects: [
     {
