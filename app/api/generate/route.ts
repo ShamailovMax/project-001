@@ -3,9 +3,13 @@ import { renderToBuffer } from '@react-pdf/renderer'
 import { loadTemplate } from '@/lib/template'
 import { fillTemplate } from '@/lib/generator'
 import { ClausifyDocument } from '@/lib/pdf'
-import { readGuestLimits, writeGuestLimits } from '@/lib/storage'
+import { readGuestLimits, writeGuestLimits, readHistory, writeHistory } from '@/lib/storage'
 import { verifyToken, COOKIE_NAME } from '@/lib/auth'
 import { createElement } from 'react'
+import { randomUUID } from 'crypto'
+import path from 'path'
+
+const USERS_DIR = path.join(process.cwd(), 'data/users')
 
 const GUEST_LIMIT = 3
 
@@ -60,6 +64,19 @@ export async function POST(req: Request) {
 
   const element = createElement(ClausifyDocument, { doc: filled, watermark: isGuest })
   const buffer = await renderToBuffer(element as any)
+
+  if (session) {
+    const userDir = path.join(USERS_DIR, session.userId)
+    const history = readHistory(userDir)
+    history.push({
+      id: randomUUID(),
+      type: type as 'contract' | 'nda',
+      lang: lang as 'ru' | 'en',
+      createdAt: new Date().toISOString(),
+      fields,
+    })
+    writeHistory(history, userDir)
+  }
 
   const filename = `${type}-${lang}-${Date.now()}.pdf`
   return new NextResponse(buffer as unknown as BodyInit, {

@@ -16,6 +16,14 @@ export default function GeneratePage({ params }: { params: Promise<{ type: strin
   const [values, setValues] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isGuest, setIsGuest] = useState(true)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(r => r.json())
+      .then(data => setIsGuest(!data.user))
+  }, [])
 
   useEffect(() => {
     fetch(`/api/template?type=${type}&lang=${lang}`)
@@ -23,10 +31,21 @@ export default function GeneratePage({ params }: { params: Promise<{ type: strin
       .then(data => {
         setFields(data.fields ?? [])
         setValues({})
+        setFieldErrors({})
       })
   }, [type, lang])
 
   async function handleGenerate() {
+    const missing: Record<string, boolean> = {}
+    for (const f of fields) {
+      if (f.required && !values[f.key]?.trim()) missing[f.key] = true
+    }
+    if (Object.keys(missing).length > 0) {
+      setFieldErrors(missing)
+      setError(lang === 'ru' ? 'Заполните обязательные поля' : 'Please fill in required fields')
+      return
+    }
+    setFieldErrors({})
     setLoading(true)
     setError('')
     const res = await fetch('/api/generate', {
@@ -82,16 +101,22 @@ export default function GeneratePage({ params }: { params: Promise<{ type: strin
                 rows={3}
                 placeholder={field.placeholder ?? ''}
                 value={values[field.key] ?? ''}
-                onChange={e => setValues(v => ({ ...v, [field.key]: e.target.value }))}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+                onChange={e => {
+                  setValues(v => ({ ...v, [field.key]: e.target.value }))
+                  setFieldErrors(fe => ({ ...fe, [field.key]: false }))
+                }}
+                className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none ${fieldErrors[field.key] ? 'border-red-500' : ''}`}
               />
             ) : (
               <input
                 type={field.type}
                 placeholder={field.placeholder ?? ''}
                 value={values[field.key] ?? ''}
-                onChange={e => setValues(v => ({ ...v, [field.key]: e.target.value }))}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                onChange={e => {
+                  setValues(v => ({ ...v, [field.key]: e.target.value }))
+                  setFieldErrors(fe => ({ ...fe, [field.key]: false }))
+                }}
+                className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black ${fieldErrors[field.key] ? 'border-red-500' : ''}`}
               />
             )}
           </div>
@@ -105,13 +130,16 @@ export default function GeneratePage({ params }: { params: Promise<{ type: strin
         disabled={loading}
         className="mt-8 w-full bg-black text-white py-3 rounded-lg text-lg hover:bg-gray-800 disabled:opacity-50"
       >
-        {loading ? 'Generating...' : 'Download PDF'}
+        {loading ? (lang === 'ru' ? 'Генерируем...' : 'Generating...') : (lang === 'ru' ? 'Скачать PDF' : 'Download PDF')}
       </button>
 
-      <p className="mt-3 text-xs text-gray-400 text-center">
-        Guest mode: PDF includes watermark.{' '}
-        <a href="/register" className="underline">Register</a> to remove it.
-      </p>
+      {isGuest && (
+        <p className="mt-3 text-xs text-gray-400 text-center">
+          {lang === 'ru' ? 'Гостевой режим: PDF содержит водяной знак.' : 'Guest mode: PDF includes watermark.'}{' '}
+          <a href="/register" className="underline">{lang === 'ru' ? 'Зарегистрируйтесь' : 'Register'}</a>{' '}
+          {lang === 'ru' ? 'чтобы убрать.' : 'to remove it.'}
+        </p>
+      )}
     </div>
   )
 }
