@@ -1,8 +1,17 @@
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer'
 import type { FilledTemplate } from '@/lib/generator'
+import path from 'path'
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    { src: path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf'), fontWeight: 'normal' },
+    { src: path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), fontWeight: 'bold' },
+  ],
+})
 
 const styles = StyleSheet.create({
-  page: { padding: 60, fontSize: 11, fontFamily: 'Helvetica', lineHeight: 1.6 },
+  page: { padding: 60, fontSize: 11, fontFamily: 'Roboto', lineHeight: 1.6 },
   title: { fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 24 },
   sectionTitle: { fontSize: 12, fontWeight: 'bold', marginTop: 16, marginBottom: 4 },
   content: { fontSize: 11, color: '#333' },
