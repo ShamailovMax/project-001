@@ -1,0 +1,65 @@
+title: "Freelance Service Agreement"
+sections:
+  - id: parties
+    title: "1. Parties"
+    content: |
+      This Agreement is entered into between {{freelancerName}} ("Contractor")
+      and {{clientName}} ("Client").
+  - id: scope
+    title: "2. Scope of Work"
+    content: |
+      Contractor agrees to perform: {{projectDescription}}.
+      Timeline: {{startDate}} to {{endDate}}.
+  - id: payment
+    title: "3. Payment"
+    content: |
+      Total fee: ${{amount}}.
+      Payment terms: {{paymentTerms}}.
+  - id: liability
+    title: "4. Limitation of Liability"
+    content: |
+      Contractor's liability is limited to the total fees paid under this Agreement.
+  - id: termination
+    title: "5. Termination"
+    content: |
+      Either party may terminate with 14 days written notice.
+  - id: signatures
+    title: "6. Signatures"
+    content: |
+      Contractor: _________________ {{freelancerName}}
+      Client:     _________________ {{clientName}}
+
+fields:
+  - key: freelancerName
+    label: "Your name"
+    type: text
+    required: true
+    placeholder: "John Smith"
+  - key: clientName
+    label: "Client name"
+    type: text
+    required: true
+    placeholder: "Acme Inc."
+  - key: projectDescription
+    label: "Scope of work"
+    type: textarea
+    required: true
+    placeholder: "Design and develop a marketing website"
+  - key: startDate
+    label: "Start date"
+    type: date
+    required: true
+  - key: endDate
+    label: "End date"
+    type: date
+    required: true
+  - key: amount
+    label: "Amount ($)"
+    type: number
+    required: true
+    placeholder: "2000"
+  - key: paymentTerms
+    label: "Payment terms"
+    type: text
+    required: true
+    placeholder: "50% upfront, 50% on delivery"

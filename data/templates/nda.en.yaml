@@ -1,0 +1,48 @@
+title: "Non-Disclosure Agreement (NDA)"
+sections:
+  - id: parties
+    title: "1. Parties"
+    content: |
+      {{disclosingParty}} ("Disclosing Party") and
+      {{receivingParty}} ("Receiving Party")
+      enter into this Non-Disclosure Agreement.
+  - id: definition
+    title: "2. Confidential Information"
+    content: |
+      "Confidential Information" means: {{confidentialInfo}}.
+  - id: obligations
+    title: "3. Obligations"
+    content: |
+      Receiving Party agrees to hold Confidential Information in strict
+      confidence and not disclose it to any third party.
+  - id: duration
+    title: "4. Term"
+    content: |
+      This Agreement remains in effect for {{duration}} from the date of signing.
+  - id: signatures
+    title: "5. Signatures"
+    content: |
+      Disclosing Party: _________________ {{disclosingParty}}
+      Receiving Party:  _________________ {{receivingParty}}
+
+fields:
+  - key: disclosingParty
+    label: "Disclosing Party"
+    type: text
+    required: true
+    placeholder: "Acme Inc."
+  - key: receivingParty
+    label: "Receiving Party"
+    type: text
+    required: true
+    placeholder: "John Smith"
+  - key: confidentialInfo
+    label: "What counts as confidential"
+    type: textarea
+    required: true
+    placeholder: "source code, financial data, client lists"
+  - key: duration
+    label: "Duration"
+    type: text
+    required: true
+    placeholder: "2 years"

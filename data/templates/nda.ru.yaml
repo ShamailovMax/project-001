@@ -1,0 +1,49 @@
+title: "Соглашение о неразглашении (NDA)"
+sections:
+  - id: parties
+    title: "1. Стороны"
+    content: |
+      {{disclosingParty}} («Раскрывающая сторона») и
+      {{receivingParty}} («Получающая сторона»)
+      заключили настоящее Соглашение о неразглашении.
+  - id: definition
+    title: "2. Конфиденциальная информация"
+    content: |
+      Под конфиденциальной информацией понимается: {{confidentialInfo}}.
+  - id: obligations
+    title: "3. Обязательства"
+    content: |
+      Получающая сторона обязуется не раскрывать конфиденциальную
+      информацию третьим лицам и использовать её исключительно
+      в целях сотрудничества сторон.
+  - id: duration
+    title: "4. Срок действия"
+    content: |
+      Настоящее Соглашение действует в течение {{duration}} с даты подписания.
+  - id: signatures
+    title: "5. Подписи"
+    content: |
+      Раскрывающая сторона: _________________ {{disclosingParty}}
+      Получающая сторона:   _________________ {{receivingParty}}
+
+fields:
+  - key: disclosingParty
+    label: "Раскрывающая сторона"
+    type: text
+    required: true
+    placeholder: "ООО Технологии"
+  - key: receivingParty
+    label: "Получающая сторона"
+    type: text
+    required: true
+    placeholder: "Иванов Иван Иванович"
+  - key: confidentialInfo
+    label: "Что считается конфиденциальным"
+    type: textarea
+    required: true
+    placeholder: "исходный код, финансовые данные, клиентская база"
+  - key: duration
+    label: "Срок действия"
+    type: text
+    required: true
+    placeholder: "2 лет"

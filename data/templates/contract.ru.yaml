@@ -1,0 +1,68 @@
+title: "Договор на оказание услуг"
+sections:
+  - id: parties
+    title: "1. Стороны"
+    content: |
+      Исполнитель: {{freelancerName}}, именуемый далее «Исполнитель»,
+      и {{clientName}}, именуемый далее «Заказчик»,
+      заключили настоящий договор о нижеследующем.
+  - id: scope
+    title: "2. Предмет договора"
+    content: |
+      Исполнитель обязуется выполнить: {{projectDescription}}.
+      Срок выполнения: с {{startDate}} по {{endDate}}.
+  - id: payment
+    title: "3. Стоимость и оплата"
+    content: |
+      Общая стоимость составляет {{amount}} руб.
+      Порядок оплаты: {{paymentTerms}}.
+  - id: liability
+    title: "4. Ответственность сторон"
+    content: |
+      Стороны несут ответственность за неисполнение обязательств
+      в соответствии с действующим законодательством РФ.
+  - id: termination
+    title: "5. Расторжение договора"
+    content: |
+      Договор может быть расторгнут по соглашению сторон
+      или в одностороннем порядке с уведомлением за 14 дней.
+  - id: signatures
+    title: "6. Подписи"
+    content: |
+      Исполнитель: _________________ {{freelancerName}}
+      Заказчик:   _________________ {{clientName}}
+
+fields:
+  - key: freelancerName
+    label: "Ваше имя / ИП"
+    type: text
+    required: true
+    placeholder: "Иванов Иван Иванович"
+  - key: clientName
+    label: "Название клиента"
+    type: text
+    required: true
+    placeholder: "ООО Ромашка"
+  - key: projectDescription
+    label: "Описание работ"
+    type: textarea
+    required: true
+    placeholder: "Разработка сайта-визитки"
+  - key: startDate
+    label: "Дата начала"
+    type: date
+    required: true
+  - key: endDate
+    label: "Дата окончания"
+    type: date
+    required: true
+  - key: amount
+    label: "Сумма (руб.)"
+    type: number
+    required: true
+    placeholder: "50000"
+  - key: paymentTerms
+    label: "Условия оплаты"
+    type: text
+    required: true
+    placeholder: "50% предоплата, 50% после сдачи"
