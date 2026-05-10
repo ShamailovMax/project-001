@@ -3,6 +3,9 @@ import type { Config } from 'jest'
 // jose v6 is pure ESM — Jest must run with NODE_OPTIONS=--experimental-vm-modules
 // See package.json "test" script.
 const config: Config = {
+  // ESM module mocks (jest.unstable_mockModule) require serial execution to avoid
+  // cross-worker module registry interference with jose / @react-pdf/renderer.
+  maxWorkers: 1,
   projects: [
     {
       displayName: 'node',
