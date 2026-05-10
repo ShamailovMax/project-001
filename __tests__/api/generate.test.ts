@@ -5,7 +5,7 @@ import * as actualStorage from '@/lib/storage'
 
 const TMP_LIMITS = path.join(process.cwd(), '__tests__/tmp/limits.json')
 
-const mockRenderToBuffer = jest.fn().mockResolvedValue(Buffer.from('fake-pdf'))
+const mockRenderToBuffer = jest.fn().mockResolvedValue(Buffer.from('fake-pdf') as unknown as never)
 
 await jest.unstable_mockModule('@react-pdf/renderer', () => ({
   renderToBuffer: mockRenderToBuffer,
@@ -34,7 +34,7 @@ beforeEach(() => {
   fs.mkdirSync(path.dirname(TMP_LIMITS), { recursive: true })
   fs.writeFileSync(TMP_LIMITS, '{}')
   jest.clearAllMocks()
-  mockRenderToBuffer.mockResolvedValue(Buffer.from('fake-pdf'))
+  mockRenderToBuffer.mockResolvedValue(Buffer.from('fake-pdf') as unknown as never)
 })
 afterEach(() => fs.rmSync(path.dirname(TMP_LIMITS), { recursive: true, force: true }))
 

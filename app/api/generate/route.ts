@@ -62,7 +62,7 @@ export async function POST(req: Request) {
   const buffer = await renderToBuffer(element as any)
 
   const filename = `${type}-${lang}-${Date.now()}.pdf`
-  return new NextResponse(buffer, {
+  return new NextResponse(buffer as unknown as BodyInit, {
     status: 200,
     headers: {
       'Content-Type': 'application/pdf',
